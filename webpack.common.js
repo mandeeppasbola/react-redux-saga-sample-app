@@ -1,16 +1,17 @@
-module.exports = {
-	devtool: 'source-map',
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {	
 	entry : ["babel-polyfill","./src/index.js"],
 	output : {
 		filename: 'bundle.js',
 		path: __dirname + "/dist"
 	},
-	"devServer": {
-		contentBase: __dirname + "/dist",
-		compress: true,
-		inline: true,
-		port: 9000
-	},
+	plugins: [new CleanWebpackPlugin(["dist"]),
+		new HtmlWebpackPlugin({
+		title: "Sample React Redux App",
+		template: "./src/index.ejs"
+	})],	
 	module: {
 		rules: [
 			{ test: /\.js?$/, exclude: /node_modules/, loader: "babel-loader" },
